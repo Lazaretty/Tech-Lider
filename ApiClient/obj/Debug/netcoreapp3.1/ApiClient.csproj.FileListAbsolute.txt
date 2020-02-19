@@ -1,0 +1,15 @@
+C:\Users\user\source\repos\Tech Lider\ApiClient\bin\Debug\netcoreapp3.1\ApiClient.exe
+C:\Users\user\source\repos\Tech Lider\ApiClient\obj\Debug\netcoreapp3.1\ApiClient.AssemblyInfoInputs.cache
+C:\Users\user\source\repos\Tech Lider\ApiClient\obj\Debug\netcoreapp3.1\ApiClient.AssemblyInfo.cs
+C:\Users\user\source\repos\Tech Lider\ApiClient\bin\Debug\netcoreapp3.1\ApiClient.deps.json
+C:\Users\user\source\repos\Tech Lider\ApiClient\bin\Debug\netcoreapp3.1\ApiClient.runtimeconfig.json
+C:\Users\user\source\repos\Tech Lider\ApiClient\bin\Debug\netcoreapp3.1\ApiClient.runtimeconfig.dev.json
+C:\Users\user\source\repos\Tech Lider\ApiClient\bin\Debug\netcoreapp3.1\ApiClient.dll
+C:\Users\user\source\repos\Tech Lider\ApiClient\bin\Debug\netcoreapp3.1\ApiClient.pdb
+C:\Users\user\source\repos\Tech Lider\ApiClient\bin\Debug\netcoreapp3.1\System.Net.Http.Formatting.dll
+C:\Users\user\source\repos\Tech Lider\ApiClient\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
+C:\Users\user\source\repos\Tech Lider\ApiClient\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll
+C:\Users\user\source\repos\Tech Lider\ApiClient\obj\Debug\netcoreapp3.1\ApiClient.csprojAssemblyReference.cache
+C:\Users\user\source\repos\Tech Lider\ApiClient\obj\Debug\netcoreapp3.1\ApiClient.csproj.CopyComplete
+C:\Users\user\source\repos\Tech Lider\ApiClient\obj\Debug\netcoreapp3.1\ApiClient.dll
+C:\Users\user\source\repos\Tech Lider\ApiClient\obj\Debug\netcoreapp3.1\ApiClient.pdb
