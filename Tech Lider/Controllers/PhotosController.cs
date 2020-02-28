@@ -11,7 +11,7 @@ using TechLider.Models;
 namespace TechLider.Controllers
 {
     [Route("api/[controller]")]
-    [Authorize]
+    //[Authorize]
     [ApiController]
     public class PhotosController : ControllerBase
     {
@@ -49,7 +49,8 @@ namespace TechLider.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutPhoto(int id, Photo photo)
         {
-            if (int.Parse(User.Identity.Name) == photo.AuthorId)
+           // if (int.Parse(User.Identity.Name) == photo.AuthorId)
+           if(id == photo.Id)
             {
                 if (id != photo.Id)
                 {
@@ -83,14 +84,15 @@ namespace TechLider.Controllers
         [HttpPost]
         public async Task<ActionResult<Photo>> PostPhoto(Photo photo)
         {
-            if (IsPossibleToAddPhoto(int.Parse(User.Identity.Name)))
+            // if (IsPossibleToAddPhoto(int.Parse(User.Identity.Name)))
+            if (IsPossibleToAddPhoto(photo.AuthorId))
             {
                 bdContext.Photos.Add(photo);
                 await bdContext.SaveChangesAsync();
                 return CreatedAtAction("GetPhoto", new { id = photo.Id }, photo);
             }
-            else return Unauthorized();
-            
+            //else return Unauthorized();
+            else return BadRequest();
         }
 
         // DELETE: api/Photos/5
@@ -99,7 +101,7 @@ namespace TechLider.Controllers
         {
 
             var photo = await bdContext.Photos.FindAsync(id);
-            if (int.Parse(User.Identity.Name) == photo.AuthorId)
+            //if (int.Parse(User.Identity.Name) == photo.AuthorId)
             {
                 if (photo == null)
                 {
@@ -111,7 +113,7 @@ namespace TechLider.Controllers
 
                 return Accepted();
             }
-            else return Unauthorized();
+           // else return Unauthorized();
         }
 
         private bool PhotoExists(int id)
@@ -121,7 +123,7 @@ namespace TechLider.Controllers
 
         private bool IsPossibleToAddPhoto(int userId)
         {
-            var usersAlbums = bdContext.Photos.Count(a => a.Id == userId);
+            var usersAlbums = bdContext.Photos.Where(a => a.AuthorId == userId).ToList().Count();
             return usersAlbums <= 20;
         }
     }

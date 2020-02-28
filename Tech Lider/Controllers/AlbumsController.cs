@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace TechLider.Controllers
 {
     [Route("api/[controller]")]
-    [Authorize]
+   // [Authorize]
     [ApiController]
     public class AlbumsController : ControllerBase
     {
@@ -21,7 +21,7 @@ namespace TechLider.Controllers
         }
 
         // GET: api/Albums
-        [AllowAnonymous]
+        //[AllowAnonymous]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Album>>> GetAlbums()
         {
@@ -30,7 +30,7 @@ namespace TechLider.Controllers
 
         // GET: api/Albums/5
         [HttpGet("{id}")]
-        [AllowAnonymous]
+       // [AllowAnonymous]
         public async Task<ActionResult<Album>> GetAlbum(int id)
         {
             var album = await bdContext.Albums.FindAsync(id);
@@ -47,7 +47,7 @@ namespace TechLider.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutAlbum(int id, Album album)
         {
-            if (int.Parse(User.Identity.Name) == album.UserId)
+            //if (int.Parse(User.Identity.Name) == album.UserId)
             {
                 if (id != album.Id)
                 {
@@ -74,7 +74,7 @@ namespace TechLider.Controllers
 
                 return Accepted();
             }
-            else return Unauthorized();
+           // else return Unauthorized();
 
         }
 
@@ -83,16 +83,18 @@ namespace TechLider.Controllers
         [HttpPost]
         public async Task<ActionResult<Album>> PostAlbum(Album album)
         {
-            if (IsPossibleToCreateAlbum(int.Parse(User.Identity.Name)))
+            // if (IsPossibleToCreateAlbum(int.Parse(User.Identity.Name
+            if (IsPossibleToCreateAlbum(album.UserId))
             {
-                album.UserId = int.Parse(User.Identity.Name);
+                // album.UserId = int.Parse(User.Identity.Name);
                 bdContext.Albums.Add(album);
                 await bdContext.SaveChangesAsync();
 
                 return CreatedAtAction("GetAlbum", new { id = album.Id }, album);
             }
             else
-                return Unauthorized();
+                // return Unauthorized();
+                return BadRequest();
         }
 
         // DELETE: api/Albums/5
@@ -100,7 +102,7 @@ namespace TechLider.Controllers
         public async Task<ActionResult<Album>> DeleteAlbum(int id)
         {
             var album = await bdContext.Albums.FindAsync(id);
-            if (int.Parse(User.Identity.Name) == album.UserId)
+         //   if (int.Parse(User.Identity.Name) == album.UserId)
             {
                 if (album == null)
                 {
@@ -112,10 +114,9 @@ namespace TechLider.Controllers
                 
                 return Accepted();
             }
-            else 
+          //  else 
             {
                 return Unauthorized();
-
             }
         }
 
@@ -126,7 +127,7 @@ namespace TechLider.Controllers
 
         private bool IsPossibleToCreateAlbum(int userId)
         {
-            var usersAlbums = bdContext.Albums.Count(a => a.Id == userId);
+            var usersAlbums = bdContext.Albums.Where(a => a.UserId == userId).ToList().Count();
             return usersAlbums <= 5;
         }
 
