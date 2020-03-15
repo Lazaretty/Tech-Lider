@@ -21,14 +21,14 @@ namespace TechLider.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<User>> Login(User model)
+        public async Task<IActionResult> Login(User model)
         {
            
-            User user = await bdContext.Users.FirstOrDefaultAsync(u => u.Email == model.Email && u.Password == model.Password);
+            var user = await bdContext.Users.FirstOrDefaultAsync(u => u.Email == model.Email && u.Password == model.Password);
             if (user != null)
             {
                 await Authenticate(user.Id.ToString());
-                return Ok();
+                return NotFound();
             }
 
             return BadRequest();
@@ -48,7 +48,7 @@ namespace TechLider.Controllers
                 new Claim(ClaimsIdentity.DefaultNameClaimType, userId)
             };
    
-            ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
+            var id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
         }
 

@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using TechLider.Models;
-
+using Tech_Lider.Services_Api;
 
 namespace TechLider.Controllers
 {
@@ -19,7 +19,6 @@ namespace TechLider.Controllers
         public async Task<ActionResult<User>> GetUser(int id)
         {
             var user = await bdContext.Users.FindAsync(id);
-
             if (user == null)
             {
                 return NotFound();
@@ -29,12 +28,10 @@ namespace TechLider.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<User>> Register(User user)
-        { 
-            bdContext.Users.Add(user);
-            await bdContext.SaveChangesAsync();
-
-            return Ok();
+        public async Task<ActionResult<IActionResult>> Register(User user)
+        {
+            await ApiService.RegisterService(bdContext, user);
+            return NotFound();
         }
     }
 }

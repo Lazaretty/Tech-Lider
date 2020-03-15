@@ -1,11 +1,11 @@
-﻿using ApiClient.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Net.Http.Headers;
+using TechLider.Models;
 
 namespace ApiClient
 {
@@ -27,10 +27,10 @@ namespace ApiClient
                     "\n10-Register" +
                     "\n0 - exit");
 
-            var swtch = Convert.ToInt32(Console.ReadLine());
-            while (swtch != 0)
+            var @switch = Convert.ToInt32(Console.ReadLine());
+            while (@switch != 0)
             {
-                switch (swtch) 
+                switch (@switch) 
                 {
                     case 1:
                         {
@@ -47,7 +47,7 @@ namespace ApiClient
 
                             Console.WriteLine("Enter NAME of album and user Id");
                             var name = Console.ReadLine();
-                            int userId = Convert.ToInt32(Console.ReadLine());
+                            var userId = Convert.ToInt32(Console.ReadLine());
                             var album = new Album() { Name = name, UserId = userId };
                             var result = PostAlbums(album);
                             Console.WriteLine(result.Result);
@@ -56,10 +56,10 @@ namespace ApiClient
                     case 3:
                         {
                             Console.WriteLine("Enter Id album to uptdate");
-                            int albumId = Convert.ToInt32(Console.ReadLine());
+                            var albumId = Convert.ToInt32(Console.ReadLine());
                             Console.WriteLine("Enter NAME of album and user Id");
                             var name = Console.ReadLine();
-                            int userId = Convert.ToInt32(Console.ReadLine());
+                            var userId = Convert.ToInt32(Console.ReadLine());
                             var album = new Album() { Name = name, UserId = userId, Id = albumId };
                             var result = PutAlbum(albumId, album);
                             Console.WriteLine(result.Result);
@@ -68,7 +68,7 @@ namespace ApiClient
                     case 4:
                         {
                             Console.WriteLine("Enter Id album to deletion");
-                            int albumId = Convert.ToInt32(Console.ReadLine());
+                            var albumId = Convert.ToInt32(Console.ReadLine());
                             var result = DeleteAlbum(albumId);
                             Console.WriteLine(result.Result);
                             break;
@@ -87,7 +87,7 @@ namespace ApiClient
                         {
                             Console.WriteLine("Enter NAME, UserId, Camera Name, Shoting Parameters of photo");
                             var name = Console.ReadLine();
-                            int userId = Convert.ToInt32(Console.ReadLine());
+                            var userId = Convert.ToInt32(Console.ReadLine());
                             var cameraName = Console.ReadLine();
                             var shootingParameters = Console.ReadLine();
                             var photo = new Photo() { Name = name, AuthorId = userId, ShootingParameters= shootingParameters, CameraName = cameraName };
@@ -99,7 +99,7 @@ namespace ApiClient
                     case 7:
                         {
                             Console.WriteLine("Enter Photo ID to deletion");
-                            int photoId = Convert.ToInt32(Console.ReadLine());
+                            var photoId = Convert.ToInt32(Console.ReadLine());
                             var result = DeletePhoto(photoId);
                             Console.WriteLine(result.Result);
                             break;
@@ -108,16 +108,15 @@ namespace ApiClient
                     case 8:
                         {
                             Console.WriteLine("Enter Photo Id to uptdate");
-                            int photoId = Convert.ToInt32(Console.ReadLine());
+                            var photoId = Convert.ToInt32(Console.ReadLine());
                             Console.WriteLine("Enter NAME, UserId, Camera Name, Shoting Parameters of photo");
                             var name = Console.ReadLine();
-                            int userId = Convert.ToInt32(Console.ReadLine());
+                            var userId = Convert.ToInt32(Console.ReadLine());
                             var cameraName = Console.ReadLine();
                             var shootingParameters = Console.ReadLine();
                             var photo = new Photo() { Name = name, AuthorId = userId, ShootingParameters = shootingParameters, CameraName = cameraName, Id = photoId};
                             var result = PutPhoto(photoId, photo);
                             Console.WriteLine(result.Result);
-                            
                             break;
                         }
                     
@@ -155,7 +154,7 @@ namespace ApiClient
                     "\n9-Login" +
                     "\n10-Register" +
                     "\n0 - exit");
-                swtch = Convert.ToInt32(Console.ReadLine());
+                @switch = Convert.ToInt32(Console.ReadLine());
                 Console.WriteLine();
             }
             
@@ -172,7 +171,7 @@ namespace ApiClient
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
-                HttpResponseMessage response = await client.GetAsync("api/Albums");
+                var response = await client.GetAsync("api/Albums");
                 response.EnsureSuccessStatusCode();
                
                 albums = await response.Content.ReadAsAsync<List<Album>>();
@@ -190,9 +189,7 @@ namespace ApiClient
                 client.BaseAddress = uri;
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
-
-                HttpResponseMessage result = await client.PostAsJsonAsync("api/Albums", album);
-                
+                var result = await client.PostAsJsonAsync("api/Albums", album);
             }
 
             return response;
@@ -206,10 +203,7 @@ namespace ApiClient
                 client.BaseAddress = uri;
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
-
-                HttpResponseMessage result = await client.DeleteAsync("api/Albums/"+albumId.ToString());
-
-             
+                var result = await client.DeleteAsync("api/Albums/"+albumId.ToString());
                 response = result.StatusCode.ToString();
                     
             }
@@ -225,10 +219,7 @@ namespace ApiClient
                 client.BaseAddress = uri;
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
-
-                HttpResponseMessage result = await client.PutAsJsonAsync("api/Albums/" + albumId.ToString(), album);
-
-
+                var result = await client.PutAsJsonAsync("api/Albums/" + albumId.ToString(), album);
                 response = result.StatusCode.ToString();
 
             }
@@ -239,18 +230,13 @@ namespace ApiClient
         static  IEnumerable<Cookie> Login(User user)
         {
 
-            CookieContainer cookies = new CookieContainer();
-            HttpClientHandler handler = new HttpClientHandler();
+            var cookies = new CookieContainer();
+            var handler = new HttpClientHandler();
             handler.CookieContainer = cookies;
-
             HttpClient authClient = new HttpClient(handler);
-
-
             authClient.BaseAddress = uri;
             authClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-            HttpResponseMessage authenticationResponse = authClient.PostAsJsonAsync("api/Login", user).Result;
-
+            var authenticationResponse = authClient.PostAsJsonAsync("api/Login", user).Result;
             var responseCookies = cookies.GetCookies(uri).Cast<Cookie>();
 
             return responseCookies;
@@ -264,8 +250,7 @@ namespace ApiClient
                 client.BaseAddress = uri;
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
-
-                HttpResponseMessage result = await client.PostAsJsonAsync("api/Register", user);
+                var result = await client.PostAsJsonAsync("api/Register", user);
 
             }
 
@@ -282,7 +267,7 @@ namespace ApiClient
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
-                HttpResponseMessage response = await client.GetAsync("api/Photos");
+                var response = await client.GetAsync("api/Photos");
                 response.EnsureSuccessStatusCode();
 
                 photos = await response.Content.ReadAsAsync<List<Photo>>();
@@ -302,7 +287,7 @@ namespace ApiClient
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
-                HttpResponseMessage response = await client.GetAsync("api/Photos/"+photoid.ToString());
+                var response = await client.GetAsync("api/Photos/"+photoid.ToString());
                 response.EnsureSuccessStatusCode();
 
                 photo = await response.Content.ReadAsAsync<Photo>();
@@ -321,7 +306,7 @@ namespace ApiClient
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
-                HttpResponseMessage result = await client.PostAsJsonAsync("api/Photos", photo);
+                var result = await client.PostAsJsonAsync("api/Photos", photo);
 
             }
 
@@ -337,7 +322,7 @@ namespace ApiClient
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
-                HttpResponseMessage result = await client.DeleteAsync("api/Photos/" + photoId.ToString());
+                var result = await client.DeleteAsync("api/Photos/" + photoId.ToString());
 
 
                 response = result.StatusCode.ToString();
@@ -356,7 +341,7 @@ namespace ApiClient
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
-                HttpResponseMessage result = await client.PutAsJsonAsync("api/Photos/" + photoId.ToString(), photo);
+                var result = await client.PutAsJsonAsync("api/Photos/" + photoId.ToString(), photo);
 
 
                 response = result.StatusCode.ToString();

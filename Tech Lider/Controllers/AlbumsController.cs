@@ -4,12 +4,13 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TechLider.Models;
+using Tech_Lider.Services_Api;
 using Microsoft.AspNetCore.Authorization;
+using System;
 
 namespace TechLider.Controllers
 {
     [Route("api/[controller]")]
-   // [Authorize]
     [ApiController]
     public class AlbumsController : ControllerBase
     {
@@ -20,115 +21,60 @@ namespace TechLider.Controllers
             bdContext = context;
         }
 
-        // GET: api/Albums
-        //[AllowAnonymous]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Album>>> GetAlbums()
         {
             return await bdContext.Albums.ToListAsync();
         }
 
-        // GET: api/Albums/5
         [HttpGet("{id}")]
-       // [AllowAnonymous]
         public async Task<ActionResult<Album>> GetAlbum(int id)
         {
             var album = await bdContext.Albums.FindAsync(id);
-
             if (album == null)
             {
-                return NotFound();
+                return NoContent();
             }
 
             return album;
         }
 
-        // PUT: api/Albums/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutAlbum(int id, Album album)
         {
-            //if (int.Parse(User.Identity.Name) == album.UserId)
+            if (await ApiService.DeleteAlbumService(bdContext, album) && id == album.Id)
             {
-                if (id != album.Id)
-                {
-                    return BadRequest();
-                }
-
-                bdContext.Entry(album).State = EntityState.Modified;
-
-                try
-                {
-                    await bdContext.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!AlbumExists(id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-
-                return Accepted();
+                return NoContent()
             }
-           // else return Unauthorized();
-
+            else
+            {
+                return BadRequest();
+            }
         }
 
-        // POST: api/Albums
        
         [HttpPost]
         public async Task<ActionResult<Album>> PostAlbum(Album album)
         {
-            // if (IsPossibleToCreateAlbum(int.Parse(User.Identity.Name
-            if (IsPossibleToCreateAlbum(album.UserId))
-            {
-                // album.UserId = int.Parse(User.Identity.Name);
-                bdContext.Albums.Add(album);
-                await bdContext.SaveChangesAsync();
 
-                return CreatedAtAction("GetAlbum", new { id = album.Id }, album);
+            if (await ApiService.PostAlbumService(bdContext, album))
+            {
+                return NoContent();
             }
             else
-                // return Unauthorized();
-                return BadRequest();
+            {
+                return BadRequest(); 
+            }
         }
 
-        // DELETE: api/Albums/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<Album>> DeleteAlbum(int id)
         {
-            var album = await bdContext.Albums.FindAsync(id);
-         //   if (int.Parse(User.Identity.Name) == album.UserId)
+            if (await ApiService.DeleteAlbumService(bdContext, id)) 
             {
-                if (album == null)
-                {
-                    return NotFound();
-                }
-
-                bdContext.Albums.Remove(album);
-                await bdContext.SaveChangesAsync();
-                
-                return Accepted();
+                return NoContent();
             }
-          //  else 
-            {
-                return Unauthorized();
-            }
-        }
-
-        private bool AlbumExists(int id)
-        {
-            return bdContext.Albums.Any(e => e.Id == id);
-        }
-
-        private bool IsPossibleToCreateAlbum(int userId)
-        {
-            var usersAlbums = bdContext.Albums.Where(a => a.UserId == userId).ToList().Count();
-            return usersAlbums <= 5;
+            return BadRequest();
         }
 
     }
