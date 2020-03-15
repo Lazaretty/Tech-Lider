@@ -9,10 +9,12 @@ namespace TechLider.Controllers
     public class RegisterController : Controller
     {
         private readonly DBContext bdContext;
+        private readonly IApiService apiService;
 
-        public RegisterController(DBContext context)
+        public RegisterController(DBContext context, IApiService service)
         {
             bdContext = context;
+            apiService = service;
         }
 
         [HttpGet("{id}")]
@@ -30,7 +32,7 @@ namespace TechLider.Controllers
         [HttpPost]
         public async Task<ActionResult<IActionResult>> Register(User user)
         {
-            await ApiService.RegisterService(bdContext, user);
+            await apiService.RegisterService(bdContext, user);
             return NotFound();
         }
     }

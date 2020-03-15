@@ -7,7 +7,7 @@ namespace Tech_Lider.Services_Api
 {
     public class ApiService : IApiService
     {
-        public static async Task<bool> PostAlbumService(DBContext bdContext, Album album)
+        public async Task<bool> PostAlbumService(DBContext bdContext, Album album)
         {
             if (IsPossibleToCreateAlbum(bdContext, album.UserId))
             {
@@ -19,7 +19,7 @@ namespace Tech_Lider.Services_Api
                 return false;
         }
 
-        public static async Task<bool> DeleteAlbumService(DBContext bdContext, int id)
+        public  async Task<bool> DeleteAlbumService(DBContext bdContext, int id)
         {
             var album = await bdContext.Albums.FindAsync(id);
             if (album == null)
@@ -31,7 +31,7 @@ namespace Tech_Lider.Services_Api
             return true;
         }
 
-        public static async Task<bool> DeleteAlbumService(DBContext bdContext, Album album)
+        public  async Task<bool> DeleteAlbumService(DBContext bdContext, Album album)
         {
             if (AlbumExists(bdContext, album.Id))
             {
@@ -54,7 +54,7 @@ namespace Tech_Lider.Services_Api
             }
         }
 
-        public static async Task<bool> PostPhotoService(DBContext dbContext, Photo photo)
+        public  async Task<bool> PostPhotoService(DBContext dbContext, Photo photo)
         {
             if (IsPossibleToAddPhoto(dbContext, photo.AuthorId))
             {
@@ -65,7 +65,7 @@ namespace Tech_Lider.Services_Api
             else return false;
         }
 
-        public static async Task<bool> PutPhotoService(DBContext bdContext, Photo photo)
+        public  async Task<bool> PutPhotoService(DBContext bdContext, Photo photo)
         {
             if (PhotoExists(bdContext,photo.Id))
             {
@@ -84,7 +84,7 @@ namespace Tech_Lider.Services_Api
                 return false;
         }
 
-        public static async Task<bool> DeletePhotoService(DBContext bdContext, int id)
+        public  async Task<bool> DeletePhotoService(DBContext bdContext, int id)
         {
             var photo = await bdContext.Photos.FindAsync(id);
             {
@@ -99,7 +99,7 @@ namespace Tech_Lider.Services_Api
             }
         }
 
-        public static async Task RegisterService(DBContext bdContext, User user)
+        public async Task RegisterService(DBContext bdContext, User user)
         {
             bdContext.Users.Add(user);
             await bdContext.SaveChangesAsync();
@@ -109,18 +109,18 @@ namespace Tech_Lider.Services_Api
             return bdContext.Albums.Any(e => e.Id == id);
         }
 
-        private static bool IsPossibleToCreateAlbum(DBContext bdContext, int userId)
+        private bool IsPossibleToCreateAlbum(DBContext bdContext, int userId)
         {
             var usersAlbums = bdContext.Albums.Where(a => a.UserId == userId).ToList().Count();
             return usersAlbums <= 5;
         }
 
-        private static bool PhotoExists(DBContext bdContext, int id)
+        private bool PhotoExists(DBContext bdContext, int id)
         {
             return bdContext.Photos.Any(e => e.Id == id);
         }
 
-        private static bool IsPossibleToAddPhoto(DBContext bdContext, int userId)
+        private bool IsPossibleToAddPhoto(DBContext bdContext, int userId)
         {
             var usersAlbums = bdContext.Photos.Where(a => a.AuthorId == userId).ToList().Count();
             return usersAlbums <= 20;

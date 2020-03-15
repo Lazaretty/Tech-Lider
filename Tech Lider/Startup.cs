@@ -1,4 +1,4 @@
-using System;
+    using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,6 +13,7 @@ using Microsoft.Extensions.Logging;
 using TechLider.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Tech_Lider.Services_Api;
 
 namespace TechLider
 {
@@ -37,6 +38,8 @@ namespace TechLider
                 {
                     options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
                 });
+
+            services.AddTransient<IApiService, ApiService>();
 
             services.AddControllers();
         }

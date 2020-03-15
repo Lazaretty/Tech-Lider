@@ -16,10 +16,11 @@ namespace TechLider.Controllers
     public class PhotosController : ControllerBase
     {
         private readonly DBContext dbContext;
-
-        public PhotosController(DBContext context)
+        private readonly IApiService apiService;
+        public PhotosController(DBContext context, IApiService service)
         {
             dbContext = context;
+            apiService = service;
         }
 
         [HttpGet]
@@ -45,7 +46,7 @@ namespace TechLider.Controllers
         public async Task<IActionResult> PutPhoto(int id, Photo photo)
         {
            
-            if (await ApiService.PutPhotoService(dbContext, photo) && id == photo.Id)
+            if (await apiService.PutPhotoService(dbContext, photo) && id == photo.Id)
             {
                 return NoContent();
             }
@@ -56,7 +57,7 @@ namespace TechLider.Controllers
         [HttpPost]
         public async Task<ActionResult<Photo>> PostPhoto(Photo photo)
         {
-            if (await ApiService.PostPhotoService(dbContext, photo))
+            if (await apiService.PostPhotoService(dbContext, photo))
             {
                 return NoContent();
             }
@@ -67,7 +68,7 @@ namespace TechLider.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<Photo>> DeletePhoto(int id)
         {
-            if (await ApiService.DeletePhotoService(dbContext, id))
+            if (await apiService.DeletePhotoService(dbContext, id))
             {
                 return NoContent();
             }
