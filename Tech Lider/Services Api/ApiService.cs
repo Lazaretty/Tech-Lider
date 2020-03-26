@@ -7,9 +7,14 @@ namespace Tech_Lider.Services_Api
 {
     public class ApiService : IApiService
     {
-        public async Task<bool> PostAlbumService(DBContext bdContext, Album album)
+        private DBContext bdContext { get; set; }
+        public void InitDb(DBContext context)
         {
-            if (IsPossibleToCreateAlbum(bdContext, album.UserId))
+            bdContext = context;
+        }
+        public async Task<bool> PostAlbumService(Album album)
+        {
+            if (IsPossibleToCreateAlbum(album.UserId))
             {
                 bdContext.Albums.Add(album);
                 await bdContext.SaveChangesAsync();
@@ -19,21 +24,21 @@ namespace Tech_Lider.Services_Api
                 return false;
         }
 
-        public  async Task<bool> DeleteAlbumService(DBContext bdContext, int id)
+        public  async Task<bool> DeleteAlbumService(int id)
         {
             var album = await bdContext.Albums.FindAsync(id);
             if (album == null)
             {
                 return false;
             }
-            bdContext.Albums.Remove(album);
+            object p = bdContext.Albums.Remove(album);
             await bdContext.SaveChangesAsync();
             return true;
         }
 
-        public  async Task<bool> DeleteAlbumService(DBContext bdContext, Album album)
+        public  async Task<bool> DeleteAlbumService(Album album)
         {
-            if (AlbumExists(bdContext, album.Id))
+            if (AlbumExists(album.Id))
             {
                 bdContext.Entry(album).State = EntityState.Modified;
                 try
@@ -54,20 +59,20 @@ namespace Tech_Lider.Services_Api
             }
         }
 
-        public  async Task<bool> PostPhotoService(DBContext dbContext, Photo photo)
+        public  async Task<bool> PostPhotoService(Photo photo)
         {
-            if (IsPossibleToAddPhoto(dbContext, photo.AuthorId))
+            if (IsPossibleToAddPhoto(photo.AuthorId))
             {
-                dbContext.Photos.Add(photo);
-                await dbContext.SaveChangesAsync();
+                bdContext.Photos.Add(photo);
+                await bdContext.SaveChangesAsync();
                 return true;
             }
             else return false;
         }
 
-        public  async Task<bool> PutPhotoService(DBContext bdContext, Photo photo)
+        public  async Task<bool> PutPhotoService(Photo photo)
         {
-            if (PhotoExists(bdContext,photo.Id))
+            if (PhotoExists(photo.Id))
             {
                 bdContext.Entry(photo).State = EntityState.Modified;
                 try
@@ -84,7 +89,7 @@ namespace Tech_Lider.Services_Api
                 return false;
         }
 
-        public  async Task<bool> DeletePhotoService(DBContext bdContext, int id)
+        public  async Task<bool> DeletePhotoService(int id)
         {
             var photo = await bdContext.Photos.FindAsync(id);
             {
@@ -99,28 +104,28 @@ namespace Tech_Lider.Services_Api
             }
         }
 
-        public async Task RegisterService(DBContext bdContext, User user)
+        public async Task RegisterService(User user)
         {
             bdContext.Users.Add(user);
             await bdContext.SaveChangesAsync();
         }
-        private static bool AlbumExists(DBContext bdContext, int id)
+        private bool AlbumExists(int id)
         {
             return bdContext.Albums.Any(e => e.Id == id);
         }
 
-        private bool IsPossibleToCreateAlbum(DBContext bdContext, int userId)
+        private bool IsPossibleToCreateAlbum(int userId)
         {
             var usersAlbums = bdContext.Albums.Where(a => a.UserId == userId).ToList().Count();
             return usersAlbums <= 5;
         }
 
-        private bool PhotoExists(DBContext bdContext, int id)
+        private bool PhotoExists(int id)
         {
             return bdContext.Photos.Any(e => e.Id == id);
         }
 
-        private bool IsPossibleToAddPhoto(DBContext bdContext, int userId)
+        private bool IsPossibleToAddPhoto(int userId)
         {
             var usersAlbums = bdContext.Photos.Where(a => a.AuthorId == userId).ToList().Count();
             return usersAlbums <= 20;

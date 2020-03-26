@@ -8,12 +8,13 @@ namespace Tech_Lider.Services_Api
 {
    public interface IApiService
     {
-        Task<bool> PostAlbumService(DBContext bdContext, Album album);
-        Task<bool> DeleteAlbumService(DBContext bdContext, int id);
-        Task<bool> DeleteAlbumService(DBContext bdContext, Album album);
-        Task<bool> PostPhotoService(DBContext dbContext, Photo photo);
-        Task<bool> PutPhotoService(DBContext bdContext, Photo photo);
-        Task<bool> DeletePhotoService(DBContext bdContext, int id);
-        Task RegisterService(DBContext bdContext, User user);
+        void InitDb(DBContext context);
+        Task<bool> PostAlbumService(Album album);
+        Task<bool> DeleteAlbumService(int id);
+        Task<bool> DeleteAlbumService(Album album);
+        Task<bool> PostPhotoService(Photo photo);
+        Task<bool> PutPhotoService(Photo photo);
+        Task<bool> DeletePhotoService(int id);
+        Task RegisterService(User user);
     }
 }

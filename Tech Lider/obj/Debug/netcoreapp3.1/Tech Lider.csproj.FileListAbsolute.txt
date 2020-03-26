@@ -143,3 +143,6 @@ C:\Users\user\source\repos\Tech Lider\Tech Lider\obj\Debug\netcoreapp3.1\Tech Li
 C:\Users\user\source\repos\Tech Lider\Tech Lider\bin\Debug\netcoreapp3.1\System.Net.Http.Formatting.dll
 C:\Users\user\source\repos\Tech Lider\Tech Lider\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll
 C:\Users\user\source\repos\Tech Lider\Tech Lider\obj\Debug\netcoreapp3.1\Tech Lider.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\user\source\repos\Tech Lider\Tech Lider\bin\Debug\netcoreapp3.1\Models.dll
+C:\Users\user\source\repos\Tech Lider\Tech Lider\bin\Debug\netcoreapp3.1\Models.exe
+C:\Users\user\source\repos\Tech Lider\Tech Lider\bin\Debug\netcoreapp3.1\Models.pdb

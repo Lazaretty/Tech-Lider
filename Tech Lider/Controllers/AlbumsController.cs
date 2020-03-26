@@ -21,6 +21,7 @@ namespace TechLider.Controllers
         {
             bdContext = context;
             apiService = service;
+            apiService.InitDb(bdContext);
         }
 
         [HttpGet]
@@ -44,9 +45,9 @@ namespace TechLider.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutAlbum(int id, Album album)
         {
-            if (await apiService.DeleteAlbumService(bdContext, album) && id == album.Id)
+            if (await apiService.DeleteAlbumService(album) && id == album.Id)
             {
-                return NoContent();
+                return Ok();
             }
             else
             {
@@ -59,7 +60,7 @@ namespace TechLider.Controllers
         public async Task<ActionResult<Album>> PostAlbum(Album album)
         {
 
-            if (await apiService.PostAlbumService(bdContext, album))
+            if (await apiService.PostAlbumService(album))
             {
                 return NoContent();
             }
@@ -72,7 +73,7 @@ namespace TechLider.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<Album>> DeleteAlbum(int id)
         {
-            if (await apiService.DeleteAlbumService(bdContext, id)) 
+            if (await apiService.DeleteAlbumService(id)) 
             {
                 return NoContent();
             }

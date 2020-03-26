@@ -11,7 +11,7 @@ namespace ApiClient
 {
     class Program
     {
-  
+        private readonly HttpClient client = new HttpClient();
         static void Main(string[] args)
         {
             Console.WriteLine("Enter number of command:" +

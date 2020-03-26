@@ -15,6 +15,7 @@ namespace TechLider.Controllers
         {
             bdContext = context;
             apiService = service;
+            apiService.InitDb(bdContext);
         }
 
         [HttpGet("{id}")]
@@ -32,7 +33,7 @@ namespace TechLider.Controllers
         [HttpPost]
         public async Task<ActionResult<IActionResult>> Register(User user)
         {
-            await apiService.RegisterService(bdContext, user);
+            await apiService.RegisterService(user);
             return NotFound();
         }
     }

@@ -141,3 +141,4 @@ C:\Users\user\source\repos\Tech Lider\ApiClient\bin\Debug\netcoreapp3.1\runtimes
 C:\Users\user\source\repos\Tech Lider\ApiClient\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\user\source\repos\Tech Lider\ApiClient\bin\Debug\netcoreapp3.1\Tech Lider.dll
 C:\Users\user\source\repos\Tech Lider\ApiClient\bin\Debug\netcoreapp3.1\Tech Lider.pdb
+C:\Users\user\source\repos\Tech Lider\ApiClient\bin\Debug\netcoreapp3.1\Models.dll
