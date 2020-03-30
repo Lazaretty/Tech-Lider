@@ -1,12 +1,9 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using TechLider.Models;
 using Tech_Lider.Services_Api;
-using Microsoft.AspNetCore.Authorization;
-using System;
+using TechLider.Models;
 
 namespace TechLider.Controllers
 {

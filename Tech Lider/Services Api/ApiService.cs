@@ -26,14 +26,21 @@ namespace Tech_Lider.Services_Api
 
         public  async Task<bool> DeleteAlbumService(int id)
         {
-            var album = await bdContext.Albums.FindAsync(id);
-            if (album == null)
+            if (AlbumExists(id))
+            {
+                var album = await bdContext.Albums.FindAsync(id);
+                if (album == null)
+                {
+                    return false;
+                }
+                object p = bdContext.Albums.Remove(album);
+                await bdContext.SaveChangesAsync();
+                return true;
+            }
+            else
             {
                 return false;
             }
-            object p = bdContext.Albums.Remove(album);
-            await bdContext.SaveChangesAsync();
-            return true;
         }
 
         public  async Task<bool> DeleteAlbumService(Album album)
@@ -91,17 +98,21 @@ namespace Tech_Lider.Services_Api
 
         public  async Task<bool> DeletePhotoService(int id)
         {
-            var photo = await bdContext.Photos.FindAsync(id);
+            if (PhotoExists(id))
             {
-                if (photo == null)
+                var photo = await bdContext.Photos.FindAsync(id);
                 {
-                    return false;
-                }
-                bdContext.Photos.Remove(photo);
-                await bdContext.SaveChangesAsync();
+                    if (photo == null)
+                    {
+                        return false;
+                    }
+                    bdContext.Photos.Remove(photo);
+                    await bdContext.SaveChangesAsync();
 
-                return true;
+                    return true;
+                }
             }
+            else { return false; }
         }
 
         public async Task RegisterService(User user)
@@ -122,7 +133,7 @@ namespace Tech_Lider.Services_Api
 
         private bool PhotoExists(int id)
         {
-            return bdContext.Photos.Any(e => e.Id == id);
+            return bdContext.Photos.Any(p => p.Id == id);
         }
 
         private bool IsPossibleToAddPhoto(int userId)

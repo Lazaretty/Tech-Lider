@@ -29,6 +29,11 @@ namespace TechLider
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "My API", Version = "v1" });
+            });
+            
             string con = "Server = DESKTOP-MT86OA9\\SQLEXPRESS; Database = Photo; Trusted_Connection=True;";
 
             services.AddDbContext<DBContext>(options => options.UseSqlServer(con));
@@ -58,6 +63,14 @@ namespace TechLider
 
             app.UseAuthentication();    
             app.UseAuthorization();
+
+            app.UseSwagger();
+
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+
+            });
 
             app.UseEndpoints(endpoints =>
             {
