@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\user\\source\\repos\\Tech Lider\\Tech Lider\\Tech Lider.csproj": {}
+    "C:\\Users\\skvor\\Универ\\Tech-Lider\\Tech Lider\\Tech Lider.csproj": {}
   },
   "projects": {
-    "C:\\Users\\user\\source\\repos\\Tech Lider\\Class Model\\Class Model.csproj": {
+    "C:\\Users\\skvor\\Универ\\Tech-Lider\\Class Model\\Class Model.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\user\\source\\repos\\Tech Lider\\Class Model\\Class Model.csproj",
+        "projectUniqueName": "C:\\Users\\skvor\\Универ\\Tech-Lider\\Class Model\\Class Model.csproj",
         "projectName": "Class Model",
-        "projectPath": "C:\\Users\\user\\source\\repos\\Tech Lider\\Class Model\\Class Model.csproj",
-        "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\user\\source\\repos\\Tech Lider\\Class Model\\obj\\",
+        "projectPath": "C:\\Users\\skvor\\Универ\\Tech-Lider\\Class Model\\Class Model.csproj",
+        "packagesPath": "C:\\Users\\skvor\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\skvor\\Универ\\Tech-Lider\\Class Model\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\skvor\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -29,6 +29,7 @@
         },
         "frameworks": {
           "netstandard2.0": {
+            "targetAlias": "netstandard2.0",
             "projectReferences": {}
           }
         },
@@ -40,6 +41,7 @@
       },
       "frameworks": {
         "netstandard2.0": {
+          "targetAlias": "netstandard2.0",
           "dependencies": {
             "Microsoft.AspNet.WebApi.Client": {
               "target": "Package",
@@ -48,6 +50,16 @@
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
               "version": "[3.1.1, )"
+            },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[3.1.3, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[3.1.3, )"
             },
             "NETStandard.Library": {
               "suppressParent": "All",
@@ -70,24 +82,24 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.200\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.103\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\user\\source\\repos\\Tech Lider\\Tech Lider\\Tech Lider.csproj": {
+    "C:\\Users\\skvor\\Универ\\Tech-Lider\\Tech Lider\\Tech Lider.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\user\\source\\repos\\Tech Lider\\Tech Lider\\Tech Lider.csproj",
+        "projectUniqueName": "C:\\Users\\skvor\\Универ\\Tech-Lider\\Tech Lider\\Tech Lider.csproj",
         "projectName": "Tech Lider",
-        "projectPath": "C:\\Users\\user\\source\\repos\\Tech Lider\\Tech Lider\\Tech Lider.csproj",
-        "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\user\\source\\repos\\Tech Lider\\Tech Lider\\obj\\",
+        "projectPath": "C:\\Users\\skvor\\Универ\\Tech-Lider\\Tech Lider\\Tech Lider.csproj",
+        "packagesPath": "C:\\Users\\skvor\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\skvor\\Универ\\Tech-Lider\\Tech Lider\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\skvor\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -99,9 +111,10 @@
         },
         "frameworks": {
           "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "C:\\Users\\user\\source\\repos\\Tech Lider\\Class Model\\Class Model.csproj": {
-                "projectPath": "C:\\Users\\user\\source\\repos\\Tech Lider\\Class Model\\Class Model.csproj"
+              "C:\\Users\\skvor\\Универ\\Tech-Lider\\Class Model\\Class Model.csproj": {
+                "projectPath": "C:\\Users\\skvor\\Универ\\Tech-Lider\\Class Model\\Class Model.csproj"
               }
             }
           }
@@ -114,6 +127,7 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
           "dependencies": {
             "Microsoft.AspNet.WebApi.Client": {
               "target": "Package",
@@ -129,13 +143,13 @@
             },
             "Microsoft.EntityFrameworkCore.Sqlite": {
               "target": "Package",
-              "version": "[3.1.1, )"
+              "version": "[3.1.3, )"
             },
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[3.1.1, )"
+              "version": "[3.1.3, )"
             },
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
@@ -164,7 +178,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.200\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.103\\RuntimeIdentifierGraph.json"
         }
       }
     }

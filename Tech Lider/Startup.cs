@@ -34,7 +34,7 @@ namespace TechLider
                 c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "My API", Version = "v1" });
             });
             
-            string con = "Server = DESKTOP-MT86OA9\\SQLEXPRESS; Database = Photo; Trusted_Connection=True;";
+            string con = "Server = localhost\\SQLEXPRESS; Database = Photo; Trusted_Connection=True;";
 
             services.AddDbContext<DBContext>(options => options.UseSqlServer(con));
 

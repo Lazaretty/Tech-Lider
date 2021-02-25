@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Razor.Language.CodeGeneration;
 using Microsoft.EntityFrameworkCore;
 using Tech_Lider.Services_Api;
 using TechLider.Models;
@@ -22,13 +25,21 @@ namespace TechLider.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Album>>> GetAlbums()
+        public async Task<ActionResult<IEnumerable<GetAlbum>>> GetAlbums()
         {
-            return await bdContext.Albums.ToListAsync();
+            var albums =  await bdContext.Albums.ToListAsync();
+            List<GetAlbum> resGetAlbums = new List<GetAlbum>();
+            foreach (var album in albums)
+            {
+                resGetAlbums.Add(new GetAlbum(album,
+                    await bdContext.Photos.Select(x => x).Where(x => x.AlbumID == album.Id).ToListAsync()));
+            }
+
+            return resGetAlbums;
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Album>> GetAlbum(int id)
+        public async Task<ActionResult<GetAlbum>> GetAlbum(int id)
         {
             var album = await bdContext.Albums.FindAsync(id);
             if (album == null)
@@ -36,7 +47,9 @@ namespace TechLider.Controllers
                 return NoContent();
             }
 
-            return album;
+            GetAlbum resGetAlbum = new GetAlbum(album,
+                await bdContext.Photos.Select(x => x).Where(x => x.AlbumID == album.Id).ToListAsync());
+            return resGetAlbum;
         }
 
         [HttpPut("{id}")]
@@ -59,7 +72,7 @@ namespace TechLider.Controllers
 
             if (await apiService.PostAlbumService(album))
             {
-                return NoContent();
+                return Ok();
             }
             else
             {
@@ -72,7 +85,7 @@ namespace TechLider.Controllers
         {
             if (await apiService.DeleteAlbumService(id)) 
             {
-                return NoContent();
+                return Ok();
             }
             return BadRequest();
         }

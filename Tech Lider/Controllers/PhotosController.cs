@@ -49,7 +49,7 @@ namespace TechLider.Controllers
            
             if (await apiService.PutPhotoService(photo) && id == photo.Id)
             {
-                return NoContent();
+                return Ok();
             }
             else
                 return BadRequest();
@@ -60,7 +60,7 @@ namespace TechLider.Controllers
         {
             if (await apiService.PostPhotoService(photo))
             {
-                return NoContent();
+                return Ok();
             }
             else 
                 return BadRequest();
@@ -71,7 +71,7 @@ namespace TechLider.Controllers
         {
             if (await apiService.DeletePhotoService(id))
             {
-                return NoContent();
+                return Ok();
             }
             else
             {

@@ -38,7 +38,7 @@ namespace ApiClient
 
                             foreach (var item in albums.Result)
                             {
-                                Console.WriteLine("Id: " + item.Id + "\nAlbum Name: " + item.Name + "\nUser ID: " + item.UserId + "\nAmount Of Photo in album: " + item.Photos.Count + "\n-------------");
+                                Console.WriteLine("Id: " + item.Id + "\nAlbum Name: " + item.Name + "\nUser ID: " + item.UserId  + "\n-------------");
                             }
                             break;
                         }

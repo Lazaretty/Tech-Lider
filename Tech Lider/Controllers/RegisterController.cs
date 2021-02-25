@@ -34,7 +34,7 @@ namespace TechLider.Controllers
         public async Task<ActionResult<IActionResult>> Register(User user)
         {
             await apiService.RegisterService(user);
-            return NotFound();
+            return Ok();
         }
     }
 }

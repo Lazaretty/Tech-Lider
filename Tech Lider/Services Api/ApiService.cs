@@ -16,7 +16,7 @@ namespace Tech_Lider.Services_Api
         {
             if (IsPossibleToCreateAlbum(album.UserId))
             {
-                bdContext.Albums.Add(album);
+                await bdContext.Albums.AddAsync(album);
                 await bdContext.SaveChangesAsync();
                 return true;
             }

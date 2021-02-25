@@ -28,7 +28,7 @@ namespace TechLider.Controllers
             if (user != null)
             {
                 await Authenticate(user.Id.ToString());
-                return NotFound();
+                return Ok();
             }
 
             return BadRequest();
